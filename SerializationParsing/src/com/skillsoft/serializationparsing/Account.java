@@ -4,51 +4,28 @@ import java.io.Serializable;
 import java.math.BigInteger;
 
 public class Account implements Serializable {
-
     private static final long serialVersionUID = 1L;
 
     public static String accountType = "LOAN";
 
     private long accountNumber;
     private String customerName;
-    private transient double loanBalance;
+    private double loanBalance;
 
-    private String additionalNotes;
+    private CreditCard creditCard;
 
-    public Account(long accountNumber, String customerName, double loanBalance) {
+    public Account(long accountNumber, String customerName, double loanBalance, String cardType) {
 
         this.accountNumber = accountNumber;
         this.customerName = customerName;
         this.loanBalance = loanBalance;
-    }
 
-    public static String getAccountType() {
-        return accountType;
-    }
-
-    public long getAccountNumber() {
-        return accountNumber;
-    }
-
-    public String getCustomerName() {
-        return customerName;
-    }
-
-    public double getLoanBalance() {
-        return loanBalance;
-    }
-
-    public String getAdditionalNotes() {
-        return additionalNotes;
-    }
-
-    public void setAdditionalNotes(String additionalNotes) {
-        this.additionalNotes = additionalNotes;
+        this.creditCard = new CreditCard(cardType);
     }
 
     @Override
     public String toString() {
-        return String.format("Account type: %s, Number: %d, Name: %s, Balance: %.1f, Notes: %s",
-                accountType, accountNumber, customerName, loanBalance, additionalNotes);
+        return String.format("Account type: %s, Number: %d, Name: %s, Balance: %.1f, %s\n",
+                accountType, accountNumber, customerName, loanBalance, creditCard);
     }
 }
