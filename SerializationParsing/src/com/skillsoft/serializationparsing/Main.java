@@ -1,32 +1,32 @@
-package com.skillsoft.serializationparsing;
-
-import java.io.*;
-import java.math.BigInteger;
-
-public class Main {
-    public static void main(String[] args) throws IOException {
-
-        System.out.println("*** Reading objects with a nested object field");
-
-        String fileName = "microsoft_accounts.txt";
-
-        try (ObjectInputStream objIn = new ObjectInputStream(
-                new BufferedInputStream(new FileInputStream(fileName)))) {
-
-            Account account1 = (Account) objIn.readObject();
-            System.out.println("Account 1: " + account1);
-            //Account 1: Account type: LOAN, Number: 11001100, Name: Bill Gates, Balance: 12000.0, Credit card type: Visa
-
-            Account account2 = (Account) objIn.readObject();
-            System.out.println("Account 2: " + account2);
-            //Account 2: Account type: LOAN, Number: 22002200, Name: Paul Allen, Balance: 6000.5, Credit card type: Amex
-        }
-        catch (ClassNotFoundException cnfe) {
-            System.out.println("*** Thrown when the class read in using readObject() is not found");
-        }
-        finally {
-            System.out.println("*** Completed reading objects from a ObjectInputStream");
-        }
+//package com.skillsoft.serializationparsing;
+//
+//import java.io.*;
+//import java.math.BigInteger;
+//
+//public class Main {
+//    public static void main(String[] args) throws IOException {
+//
+//        System.out.println("*** Reading objects with a nested object field");
+//
+//        String fileName = "microsoft_accounts.txt";
+//
+//        try (ObjectInputStream objIn = new ObjectInputStream(
+//                new BufferedInputStream(new FileInputStream(fileName)))) {
+//
+//            Account account1 = (Account) objIn.readObject();
+//            System.out.println("Account 1: " + account1);
+//            //Account 1: Account type: LOAN, Number: 11001100, Name: Bill Gates, Balance: 12000.0, Credit card type: Visa
+//
+//            Account account2 = (Account) objIn.readObject();
+//            System.out.println("Account 2: " + account2);
+//            //Account 2: Account type: LOAN, Number: 22002200, Name: Paul Allen, Balance: 6000.5, Credit card type: Amex
+//        }
+//        catch (ClassNotFoundException cnfe) {
+//            System.out.println("*** Thrown when the class read in using readObject() is not found");
+//        }
+//        finally {
+//            System.out.println("*** Completed reading objects from a ObjectInputStream");
+//        }
 
 //        System.out.println("*** Saving objects with nested object fields");
 //
@@ -58,8 +58,8 @@ public class Main {
 //        finally {
 //            System.out.println("*** Completed writing objects using ObjectOutputStream");
 //        }
-    }
-}
+//    }
+//}
 
 // Wire Protocol or Format
 // Represent information at the application level that allows us to get data from point A to point B
@@ -84,3 +84,12 @@ public class Main {
 
 // The "transient" keyword
 // Used to specify fields which should NOT be serialized
+
+// Socket
+// An endpoint of a two-way communication link between two applications on the same network
+
+// Localhost
+// 127.0.0.1
+
+// ServerSocket
+// System independent implementation of the server side of a client/server socket connection
