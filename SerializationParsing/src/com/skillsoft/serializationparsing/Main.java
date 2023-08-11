@@ -15,6 +15,14 @@ public class Main {
                 new BufferedInputStream(new FileInputStream(fileName)))) {
 
             Account account1 = (Account) objIn.readObject();
+            //Exception in thread "main" java.io.InvalidClassException: com.skillsoft.serializationparsing.Account; local class incompatible: stream classdesc serialVersionUID = 3127918765189967070, local class serialVersionUID = 1
+            //	at java.base/java.io.ObjectStreamClass.initNonProxy(ObjectStreamClass.java:689)
+            //	at java.base/java.io.ObjectInputStream.readNonProxyDesc(ObjectInputStream.java:1903)
+            //	at java.base/java.io.ObjectInputStream.readClassDesc(ObjectInputStream.java:1772)
+            //	at java.base/java.io.ObjectInputStream.readOrdinaryObject(ObjectInputStream.java:2060)
+            //	at java.base/java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1594)
+            //	at java.base/java.io.ObjectInputStream.readObject(ObjectInputStream.java:430)
+            //	at com.skillsoft.serializationparsing.Main.main(Main.java:17)
             System.out.println("Account 1: " + account1);
             //Account 1: Account type: LOAN, Number: 11111, Name: Ada Lovelace, Balance: 20000.0
 
@@ -69,3 +77,9 @@ public class Main {
 
 // Serialization and Deserialization
 // Converting to byte stream and reconverting to object format
+
+// Managing Class Versions
+// Objects serialized using one version of a class MAY NOT be compatible with new versions
+
+// serialVersionUID
+// Used to remember versions of a serializable class
