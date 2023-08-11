@@ -5,20 +5,17 @@ import java.math.BigInteger;
 
 public class Account implements Serializable {
 
-    private static final long serialVersionUID = 2L;
-//    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
     public static String accountType = "LOAN";
 
-    private BigInteger accountNumber;
-//    private long accountNumber;
+    private long accountNumber;
     private String customerName;
-    private double loanBalance;
+    private transient double loanBalance;
 
     private String additionalNotes;
 
-    public Account(BigInteger accountNumber, String customerName, double loanBalance) {
-//    public Account(long accountNumber, String customerName, double loanBalance) {
+    public Account(long accountNumber, String customerName, double loanBalance) {
 
         this.accountNumber = accountNumber;
         this.customerName = customerName;
@@ -29,8 +26,7 @@ public class Account implements Serializable {
         return accountType;
     }
 
-    public BigInteger getAccountNumber() {
-//    public long getAccountNumber() {
+    public long getAccountNumber() {
         return accountNumber;
     }
 

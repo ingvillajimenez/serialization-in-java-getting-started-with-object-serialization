@@ -7,38 +7,20 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
 
-        System.out.println("*** Reading objects with a serialVersionUID");
+        System.out.println("*** Reading objects with a transient field");
 
-        String fileName = "apple_accounts.txt";
+        String fileName = "microsoft_accounts.txt";
 
         try (ObjectInputStream objIn = new ObjectInputStream(
                 new BufferedInputStream(new FileInputStream(fileName)))) {
 
             Account account1 = (Account) objIn.readObject();
-            //Exception in thread "main" java.io.InvalidClassException: com.skillsoft.serializationparsing.Account; incompatible types for field accountNumber
-            //	at java.base/java.io.ObjectStreamClass.matchFields(ObjectStreamClass.java:2357)
-            //	at java.base/java.io.ObjectStreamClass.getReflector(ObjectStreamClass.java:2251)
-            //	at java.base/java.io.ObjectStreamClass.initNonProxy(ObjectStreamClass.java:743)
-            //	at java.base/java.io.ObjectInputStream.readNonProxyDesc(ObjectInputStream.java:1903)
-            //	at java.base/java.io.ObjectInputStream.readClassDesc(ObjectInputStream.java:1772)
-            //	at java.base/java.io.ObjectInputStream.readOrdinaryObject(ObjectInputStream.java:2060)
-            //	at java.base/java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1594)
-            //	at java.base/java.io.ObjectInputStream.readObject(ObjectInputStream.java:430)
-            //	at com.skillsoft.serializationparsing.Main.main(Main.java:17)
-            //Exception in thread "main" java.io.InvalidClassException: com.skillsoft.serializationparsing.Account; local class incompatible: stream classdesc serialVersionUID = 1, local class serialVersionUID = 2
-            //	at java.base/java.io.ObjectStreamClass.initNonProxy(ObjectStreamClass.java:689)
-            //	at java.base/java.io.ObjectInputStream.readNonProxyDesc(ObjectInputStream.java:1903)
-            //	at java.base/java.io.ObjectInputStream.readClassDesc(ObjectInputStream.java:1772)
-            //	at java.base/java.io.ObjectInputStream.readOrdinaryObject(ObjectInputStream.java:2060)
-            //	at java.base/java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1594)
-            //	at java.base/java.io.ObjectInputStream.readObject(ObjectInputStream.java:430)
-            //	at com.skillsoft.serializationparsing.Main.main(Main.java:17)
             System.out.println("Account 1: " + account1);
-            //Account 1: Account type: LOAN, Number: 1010101, Name: Steve Jobs, Balance: 1555.5
+            //Account 1: Account type: LOAN, Number: 11001100, Name: Bill Gates, Balance: 0.0, Notes: Fast track loan repayment
 
             Account account2 = (Account) objIn.readObject();
             System.out.println("Account 2: " + account2);
-            //Account 2: Account type: LOAN, Number: 2020202, Name: Steve Wozniak, Balance: 3333.3
+            //Account 2: Account type: LOAN, Number: 22002200, Name: Paul Allen, Balance: 0.0, Notes: Special repayment terms
         }
         catch (ClassNotFoundException cnfe) {
             System.out.println("*** Thrown when the class read in using readObject() is not found");
@@ -47,19 +29,21 @@ public class Main {
             System.out.println("*** Completed reading objects from a ObjectInputStream");
         }
 
-//        System.out.println("*** Writing objects with a serialVersionUID");
+//        System.out.println("*** Saving objects with transient fields");
 //
-//        Account account1 = new Account(1010101, "Steve Jobs", 1555.5f);
-//        Account account2 = new Account(2020202, "Steve Wozniak", 3333.3f);
+//        Account account1 = new Account(11001100, "Bill Gates", 12000.0f);
+//        account1.setAdditionalNotes("Fast track loan repayment");
 //
-//        String fileName = "apple_accounts.txt";
+//        Account account2 = new Account(22002200, "Paul Allen", 6000.5f);
+//        account2.setAdditionalNotes("Special repayment terms");
+//
+//        String fileName = "microsoft_accounts.txt";
 //
 //        try (ObjectOutputStream objOut = new ObjectOutputStream(
 //                new BufferedOutputStream(new FileOutputStream(fileName)))) {
 //
 //            objOut.writeObject(account1);
 //            objOut.writeObject(account2);
-//
 //        }
 //        catch (NotSerializableException nse) {
 //            nse.printStackTrace();
@@ -91,3 +75,6 @@ public class Main {
 
 // Backward Compatible
 // Adding a new field means your class can still read serialized versions of older objects
+
+// The "transient" keyword
+// Used to specify fields which should NOT be serialized
