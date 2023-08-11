@@ -7,70 +7,52 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
 
-        System.out.println("*** Reading records using a ObjectInputStream");
-        System.out.println("*** Casting to the wrong class");
+        System.out.println("*** Reading serializable objects using a ObjectInputStream");
 
-        String productFilename = "products.txt";
+        String fileName = "accounts.txt";
 
-        try(ObjectInputStream objIn = new ObjectInputStream(
-                new BufferedInputStream(new FileInputStream(productFilename)))) {
+        try (ObjectInputStream objIn = new ObjectInputStream(
+                new BufferedInputStream(new FileInputStream(fileName)))) {
 
-            for (int i = 0; i < 3; i++) {
+            Account account1 = (Account) objIn.readObject();
+            System.out.println("Account 1: " + account1);
+            //Account 1: Account type: LOAN, Number: 11111, Name: Ada Lovelace, Balance: 20000.0
 
-                String productId = (String) objIn.readObject();
-                //Exception in thread "main" java.lang.ClassCastException: class java.math.BigInteger cannot be cast to class java.lang.String (java.math.BigInteger and java.lang.String are in module java.base of loader 'bootstrap')
-                //	at com.skillsoft.serializationparsing.Main.main(Main.java:20)
-//                BigInteger productId = (BigInteger) objIn.readObject();
-                String productName = objIn.readUTF();
-                float productPrice = (float) objIn.readFloat();
-
-                System.out.format("Product ID: %d, Name: %s, Price: %.1f\n",
-                        productId, productName, productPrice);
-                //Product ID: 23400000023, Name: Samsung TV, Price: 1600.0
-                //Product ID: 34556000002, Name: Adidas Shoes, Price: 199.9
-                //Product ID: 98750000033, Name: iPhone 6s, Price: 599.0
-            }
+            Account account2 = (Account) objIn.readObject();
+            System.out.println("Account 2: " + account2);
+            //Account 2: Account type: LOAN, Number: 22222, Name: Charles Babbage, Balance: 15500.0
         }
         catch (ClassNotFoundException cnfe) {
             System.out.println("*** Thrown when the class read in using readObject() is not found");
         }
         finally {
-            System.out.println("*** Completed reading records from a ObjectInputStream");
+            System.out.println("*** Completed reading objects from a ObjectInputStream");
         }
 
-//        System.out.println("*** ObjectOutputStream to write objets to disk");
-//        System.out.println("*** Supports primitive types as well as objects");
+//        System.out.println("*** Trying to write a serializable class");
+////        System.out.println("*** Trying to write a non-serializable class");
 //
-//        BigInteger productIds[] = {
-//                new BigInteger("23400000023"),
-//                new BigInteger("34556000002"),
-//                new BigInteger("98750000033")
-//        };
+//        Account account1 = new Account(11111, "Ada Lovelace", 20000.0f);
+//        Account account2 = new Account(22222, "Charles Babbage", 15500.0f);
 //
-//        String[] productNames = new String[] {"Samsung TV", "Adidas Shoes", "iPhone 6s"};
-//        float[] productPrices = new float[] {1599.99f, 199.95f, 599.0f};
-//
-//        System.out.println("BigInteger implements Serializable" +
-//                (productIds[0] instanceof Serializable)); // true
-//        System.out.println("String implements Serializable" +
-//                (productNames[0] instanceof Serializable)); // true
-//        System.out.println("float implements Serializable" +
-//                (Float.valueOf(productPrices[0]) instanceof Serializable)); // true
-//
-//        String productFilename = "products.txt";
+//        String fileName = "accounts.txt";
 //
 //        try(ObjectOutputStream objOut = new ObjectOutputStream(
-//                new BufferedOutputStream(new FileOutputStream(productFilename)))) {
+//                new BufferedOutputStream(new FileOutputStream(fileName)))) {
 //
-//            for (int i = 0; i < productIds.length; i++) {
-//
-//                objOut.writeObject(productIds[i]);
-//                objOut.writeUTF(productNames[i]);
-//                objOut.writeFloat(productPrices[i]);
-//            }
-//
-//        } finally {
-//            System.out.println("*** Completed writing records to a ObjectOutputStream");
+//            objOut.writeObject(account1);
+//            //java.io.NotSerializableException: com.skillsoft.serializationparsing.Account
+//            //	at java.base/java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1185)
+//            //	at java.base/java.io.ObjectOutputStream.writeObject(ObjectOutputStream.java:349)
+//            //	at com.skillsoft.serializationparsing.Main.main(Main.java:20)
+//            objOut.writeObject(account2);
+//        }
+//        catch (NotSerializableException nse) {
+//            nse.printStackTrace();
+//        }
+//        finally {
+//            System.out.println("*** Completed writing serializable objects using ObjectOutputStream");
+////            System.out.println("*** Completed writing non-serializable objects using ObjectOutputStream");
 //        }
 
     }
